@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "UerrHj2RN28I+Sqad6ViwK7NzNuViHgekSENCyFgGGL8Kjlutg2elRXrGQAjxvpOGdd+vq/RlIn+cyW0hz1GLQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Arturo\\source\\repos\\SearchFight\\SearchFight\\SearchFight.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Arturo\\.nuget\\packages\\google.apis\\1.45.0\\google.apis.1.45.0.nupkg.sha512",
+    "C:\\Users\\Arturo\\.nuget\\packages\\google.apis.core\\1.45.0\\google.apis.core.1.45.0.nupkg.sha512",
+    "C:\\Users\\Arturo\\.nuget\\packages\\google.apis.customsearch.v1\\1.45.0.1965\\google.apis.customsearch.v1.1.45.0.1965.nupkg.sha512",
+    "C:\\Users\\Arturo\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

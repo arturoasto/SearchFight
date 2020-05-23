@@ -1,0 +1,227 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Google.Apis/1.45.0": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis.Core": "1.45.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Apis.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.dll": {}
+        }
+      },
+      "Google.Apis.Core/1.45.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Apis.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Core.dll": {}
+        }
+      },
+      "Google.Apis.Customsearch.v1/1.45.0.1965": {
+        "type": "package",
+        "dependencies": {
+          "Google.Apis": "1.45.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Google.Apis.Customsearch.v1.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Apis.Customsearch.v1.dll": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Google.Apis/1.45.0": {
+      "sha512": "V/huVWohIr8c2Zg9+W+8fBElPd8Smz03k8e+tq/X9JsRdvAPaCBNwvMVNoyPbH+x/2tEFyX+n1jvIGFNC4hLzw==",
+      "type": "package",
+      "path": "google.apis/1.45.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.1.45.0.nupkg.sha512",
+        "google.apis.nuspec",
+        "lib/net45/Google.Apis.PlatformServices.dll",
+        "lib/net45/Google.Apis.dll",
+        "lib/net45/Google.Apis.pdb",
+        "lib/net45/Google.Apis.xml",
+        "lib/netstandard1.3/Google.Apis.dll",
+        "lib/netstandard1.3/Google.Apis.pdb",
+        "lib/netstandard1.3/Google.Apis.xml",
+        "lib/netstandard2.0/Google.Apis.dll",
+        "lib/netstandard2.0/Google.Apis.pdb",
+        "lib/netstandard2.0/Google.Apis.xml"
+      ]
+    },
+    "Google.Apis.Core/1.45.0": {
+      "sha512": "hYqI4v3kEIfWxiYierMo59XCAOFBoH30RqCzomSubK9JXGAv/o0Cp+gxEeAH9GspxQcZNZV50ouu/8Ypigd7fw==",
+      "type": "package",
+      "path": "google.apis.core/1.45.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "NuGetIcon.png",
+        "google.apis.core.1.45.0.nupkg.sha512",
+        "google.apis.core.nuspec",
+        "lib/net45/Google.Apis.Core.dll",
+        "lib/net45/Google.Apis.Core.pdb",
+        "lib/net45/Google.Apis.Core.xml",
+        "lib/netstandard1.3/Google.Apis.Core.dll",
+        "lib/netstandard1.3/Google.Apis.Core.pdb",
+        "lib/netstandard1.3/Google.Apis.Core.xml",
+        "lib/netstandard2.0/Google.Apis.Core.dll",
+        "lib/netstandard2.0/Google.Apis.Core.pdb",
+        "lib/netstandard2.0/Google.Apis.Core.xml"
+      ]
+    },
+    "Google.Apis.Customsearch.v1/1.45.0.1965": {
+      "sha512": "sdFXeZ+CVHVKMjsYp5nmg5W72liecEltNqkg/7KKHYLgPh35/y92Etq0d2/kNcsHAB+5dPg6DRwUqxOHylrPhQ==",
+      "type": "package",
+      "path": "google.apis.customsearch.v1/1.45.0.1965",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "google.apis.customsearch.v1.1.45.0.1965.nupkg.sha512",
+        "google.apis.customsearch.v1.nuspec",
+        "lib/net40/Google.Apis.Customsearch.v1.dll",
+        "lib/net40/Google.Apis.Customsearch.v1.pdb",
+        "lib/net40/Google.Apis.Customsearch.v1.xml",
+        "lib/net45/Google.Apis.Customsearch.v1.dll",
+        "lib/net45/Google.Apis.Customsearch.v1.pdb",
+        "lib/net45/Google.Apis.Customsearch.v1.xml",
+        "lib/netstandard1.0/Google.Apis.Customsearch.v1.dll",
+        "lib/netstandard1.0/Google.Apis.Customsearch.v1.pdb",
+        "lib/netstandard1.0/Google.Apis.Customsearch.v1.xml",
+        "lib/netstandard1.3/Google.Apis.Customsearch.v1.dll",
+        "lib/netstandard1.3/Google.Apis.Customsearch.v1.pdb",
+        "lib/netstandard1.3/Google.Apis.Customsearch.v1.xml",
+        "lib/netstandard2.0/Google.Apis.Customsearch.v1.dll",
+        "lib/netstandard2.0/Google.Apis.Customsearch.v1.pdb",
+        "lib/netstandard2.0/Google.Apis.Customsearch.v1.xml"
+      ]
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "sha512": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "type": "package",
+      "path": "newtonsoft.json/12.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.12.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v5.0": [
+      "Google.Apis.Customsearch.v1 >= 1.45.0.1965"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Arturo\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\Arturo\\source\\repos\\SearchFight\\SearchFight\\SearchFight.csproj",
+      "projectName": "SearchFight",
+      "projectPath": "C:\\Users\\Arturo\\source\\repos\\SearchFight\\SearchFight\\SearchFight.csproj",
+      "packagesPath": "C:\\Users\\Arturo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Arturo\\source\\repos\\SearchFight\\SearchFight\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Arturo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp5.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp5.0": {
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp5.0": {
+        "dependencies": {
+          "Google.Apis.Customsearch.v1": {
+            "target": "Package",
+            "version": "[1.45.0.1965, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100-preview.1.20155.7\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
