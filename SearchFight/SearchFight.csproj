@@ -5,8 +5,4 @@
     <TargetFramework>netcoreapp5.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Google.Apis.Customsearch.v1" Version="1.45.0.1965" />
-  </ItemGroup>
-
 </Project>

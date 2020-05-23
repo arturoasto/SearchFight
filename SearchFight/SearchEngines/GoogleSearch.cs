@@ -13,8 +13,9 @@ namespace SearchFight.SearchEngines
         public string MaxWinner { get; set; }
 
         public int GetSearchResultCount(string searchInput)
-        {
+        {          
+
             return 0;
         }
-    }
+}
 }

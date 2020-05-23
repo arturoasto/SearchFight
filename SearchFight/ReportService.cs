@@ -1,4 +1,5 @@
 ﻿using SearchFight.SearchEngines;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,8 @@ namespace SearchFight
 
         public ReportService AppendResultsByArgument(string[] args)
         {
+            if (args == null) throw new ArgumentException("You should provide words to start the search");
+
             var arguments = args.ToList();
 
             arguments.ForEach(argument =>
