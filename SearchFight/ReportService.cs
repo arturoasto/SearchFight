@@ -20,7 +20,7 @@ namespace SearchFight
 
         public async Task<ReportService> AppendResultsByArgument(string[] args)
         {
-            if (args == null) throw new ArgumentException("You should provide words to start the search");
+            if (args.Count() == 0) throw new ArgumentException("You should provide words to start the search");
 
             foreach (var arg in args)
             {

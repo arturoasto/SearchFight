@@ -31,7 +31,7 @@ namespace SearchFight.Tests.ReportServiceTests
         [Test]
         public void ReportService_AppendResultsByArgument_ArgumentException()
         {
-            string[] arguments = null;
+            string[] arguments = new string[0];
 
             Assert.Throws<ArgumentException>(() =>
                                             ReportService.AppendResultsByArgument(arguments).GetAwaiter().GetResult(),                
