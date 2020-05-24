@@ -24,14 +24,5 @@ namespace SearchFight.SearchEngines
 
             return result;
         }
-
-        private void SetMaxResults(long result, string searchInput)
-        {
-            if (result > MaxResult)
-            {
-                MaxResult = result;
-                MaxWinner = searchInput;
-            }
-        }
     }
 }
