@@ -15,6 +15,13 @@ namespace SearchFight
             ReportService = new ReportService(GetSearchEngines());
         }
 
+        public static async Task StartSearch(string[] args)
+        {
+            await ReportService.AppendResultsByArgument(args);
+            ReportService.AppendResultsBySearchEngine()
+                         .AppendTotalWinner();
+        }
+
         private static List<ISearchEngine> GetSearchEngines()
         {
             return AppDomain.CurrentDomain.GetAssemblies()
@@ -23,16 +30,6 @@ namespace SearchFight
                 .Where(type => type.GetInterface(typeof(ISearchEngine).ToString()) != null)
                 .Select(type => Activator.CreateInstance(type) as ISearchEngine)
                 .ToList();
-        }
-
-        public static async Task StartSearch(string[] args)
-        {
-            await Task.Run(() =>
-            {
-                    ReportService.AppendResultsByArgument(args)
-                                 .AppendResultsBySearchEngine()
-                                 .AppendTotalWinner();
-            });
         }
     }
 }

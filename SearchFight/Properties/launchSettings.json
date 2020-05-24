@@ -2,7 +2,7 @@
   "profiles": {
     "SearchFight": {
       "commandName": "Project",
-      "commandLineArgs": "net java"
+      "commandLineArgs": "python \"java script\" xamarin"
     }
   }
 }

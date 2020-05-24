@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SearchFight
 {
@@ -17,23 +18,22 @@ namespace SearchFight
             ReportOutputs = new List<string>();
         }
 
-        public ReportService AppendResultsByArgument(string[] args)
+        public async Task<ReportService> AppendResultsByArgument(string[] args)
         {
             if (args == null) throw new ArgumentException("You should provide words to start the search");
 
-            var arguments = args.ToList();
-
-            arguments.ForEach(argument =>
+            foreach (var arg in args)
             {
-                var lineResult = new StringBuilder($"{argument}:");
+                var lineResult = new StringBuilder($"{arg}:");
 
-                SearchEngines.ForEach(searchEngine =>
+                foreach (var searchEngine in SearchEngines)
                 {
-                    lineResult.Append($" {searchEngine.Name}: {searchEngine.GetSearchResultCount(argument).GetAwaiter().GetResult()}");
-                });
+                    lineResult.Append($" {searchEngine.Name}:");
+                    lineResult.Append($" {await searchEngine.GetSearchResultCount(arg)}");
+                }
 
                 ReportOutputs.Add(lineResult.ToString());
-            });
+            }
 
             return this;
         }
@@ -44,13 +44,12 @@ namespace SearchFight
             return this;
         }
 
-        public ReportService AppendTotalWinner()
+        public void AppendTotalWinner()
         {
             var maxResult = SearchEngines.Max(x => x.MaxResult);
             var totalWinner = SearchEngines.Where(x => x.MaxResult == maxResult).Select(x => x.MaxWinner).First();
 
             ReportOutputs.Add($"Total winner: {totalWinner}");
-            return this;
         }
     }
 }

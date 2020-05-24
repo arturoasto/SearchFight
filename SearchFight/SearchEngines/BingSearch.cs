@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Net;
+﻿using Newtonsoft.Json;
+using SearchFight.Models.Bing;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -10,8 +10,6 @@ namespace SearchFight.SearchEngines
         private string BaseUrl => GetConfiguration("BING_BASE_URL");
         private string ApiKey => GetConfiguration("BING_API_KEY");
 
-        private HttpClient Client { get; set; }
-
         public BingSearch()
         {
             Client = new HttpClient();
@@ -20,17 +18,20 @@ namespace SearchFight.SearchEngines
 
         public async Task<long> GetSearchResultCount(string searchInput)
         {
-            string searchRequest = BaseUrl.Replace("{KEY}", ApiKey)
-                                          .Replace("{QUERY}", searchInput);            
+            string content = await SearchResult(Client, GetSearchRequest(searchInput));
 
-            var response = await Client.GetAsync(searchRequest);
+            var bingResponse = JsonConvert.DeserializeObject<BingResponse>(content);
+            var searchTotalResults = long.Parse(bingResponse.WebPages.TotalEstimatedMatches);
 
-            var content = await response.Content.ReadAsStringAsync();
+            SetMaxResults(searchTotalResults, searchInput);
 
-            var result = long.Parse(JObject.Parse(content)["webPages"]["totalEstimatedMatches"].ToString());
-            SetMaxResults(result, searchInput);
+            return searchTotalResults;
+        }
 
-            return result;
+        protected override string GetSearchRequest(string searchInput)
+        {
+            return BaseUrl.Replace("{KEY}", ApiKey)
+                          .Replace("{QUERY}", searchInput);
         }
     }
 }

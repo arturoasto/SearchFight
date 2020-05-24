@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace SearchFight
 {
@@ -7,16 +6,12 @@ namespace SearchFight
     {
         static void Main(string[] searchParams)
         {          
-            Console.WriteLine("Search Fight");
-            Start(searchParams).GetAwaiter().GetResult();
+            Console.WriteLine("Search Fight ...");
+
+            SearchFight.StartSearch(searchParams).GetAwaiter().GetResult();
+            SearchFight.ReportService.ReportOutputs.ForEach(report => Console.WriteLine(report));
 
             Console.ReadLine();
-        }
-
-        static async Task Start(string[] searchParams)
-        {
-            await SearchFight.StartSearch(searchParams);
-            SearchFight.ReportService.ReportOutputs.ForEach(report => Console.WriteLine(report));
         }
     }
 }

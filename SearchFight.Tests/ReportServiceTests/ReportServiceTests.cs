@@ -1,16 +1,21 @@
+using FluentAssertions;
 using NUnit.Framework;
+using SearchFight.Tests.Mock;
 using System;
+using System.Linq;
 
 namespace SearchFight.Tests.ReportServiceTests
 {
     public class ReportServiceTests
     {
+        private MockedSearchEngine MockedSearchEngine;
         private ReportService ReportService;
         private ReportServiceTestSupport ReportServiceTestSupport;
 
         [SetUp]
         public void Setup()
         {
+            MockedSearchEngine = new MockedSearchEngine();
             ReportServiceTestSupport = new ReportServiceTestSupport();
             ReportService = new ReportService(ReportServiceTestSupport.GetSearchEngines());            
         }
@@ -19,8 +24,8 @@ namespace SearchFight.Tests.ReportServiceTests
         public void ReportService_AppendResultsByArgument_ReportOutputOk()
         {
             var arguments = new string[2] { "java", "net" };
-            ReportService.AppendResultsByArgument(arguments);
-            Assert.IsNotEmpty(ReportService.ReportOutputs);
+            ReportService.AppendResultsByArgument(arguments).GetAwaiter().GetResult();
+            ReportService.ReportOutputs.Should().NotBeEmpty();
         }
 
         [Test]
@@ -28,7 +33,27 @@ namespace SearchFight.Tests.ReportServiceTests
         {
             string[] arguments = null;
 
-            Assert.Throws<ArgumentException>(() => ReportService.AppendResultsByArgument(arguments), "You should provide words to start the search");
+            Assert.Throws<ArgumentException>(() =>
+                                            ReportService.AppendResultsByArgument(arguments).GetAwaiter().GetResult(),                
+                                            "You should provide words to start the search");
+        }
+
+        [Test]
+        public void ReportService_AppendResultsBySearchEngine_Success()
+        {
+            ReportService.AppendResultsBySearchEngine();
+            ReportService.ReportOutputs.First()
+                                       .Should()
+                                       .Be($"{MockedSearchEngine.Name} winner: {MockedSearchEngine.MaxWinner}");
+        }
+
+        [Test]
+        public void ReportService_AppendTotalWinner_Success()
+        {
+            ReportService.AppendTotalWinner();
+            ReportService.ReportOutputs.First()
+                                       .Should()
+                                       .Be($"Total winner: {MockedSearchEngine.MaxWinner}");
         }
     }
 }
