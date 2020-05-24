@@ -17,3 +17,6 @@ are per implemmented search engine, for example:
     Google winner: .net
     MSN Search winner: java
     Total winner: .net  
+
+Before starting the application you have to make sure you have the needed keys for 
+the API's and place them in the App.config file.
