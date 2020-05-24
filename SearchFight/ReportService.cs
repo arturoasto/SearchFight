@@ -9,7 +9,6 @@ namespace SearchFight
     public class ReportService
     {
         public List<string> ReportOutputs { get; set; }
-
         public List<ISearchEngine> SearchEngines { get; set; }
 
         public ReportService(List<ISearchEngine> searchEngines)
@@ -30,7 +29,7 @@ namespace SearchFight
 
                 SearchEngines.ForEach(searchEngine =>
                 {
-                    lineResult.Append($" {searchEngine.Name}: {searchEngine.GetSearchResultCount(argument)}");
+                    lineResult.Append($" {searchEngine.Name}: {searchEngine.GetSearchResultCount(argument).GetAwaiter().GetResult()}");
                 });
 
                 ReportOutputs.Add(lineResult.ToString());

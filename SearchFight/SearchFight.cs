@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SearchFight
 {
@@ -24,11 +25,14 @@ namespace SearchFight
                 .ToList();
         }
 
-        public static void StartSearch(string[] args)
+        public static async Task StartSearch(string[] args)
         {
-            ReportService.AppendResultsByArgument(args)
-                         .AppendResultsBySearchEngine()
-                         .AppendTotalWinner();
+            await Task.Run(() =>
+            {
+                    ReportService.AppendResultsByArgument(args)
+                                 .AppendResultsBySearchEngine()
+                                 .AppendTotalWinner();
+            });
         }
     }
 }

@@ -1,19 +1,18 @@
-using FluentAssertions;
 using NUnit.Framework;
-using SearchFight.SearchEngines;
 using System;
-using System.Collections.Generic;
 
-namespace SearchFight.Tests
+namespace SearchFight.Tests.ReportServiceTests
 {
     public class ReportServiceTests
     {
         private ReportService ReportService;
+        private ReportServiceTestSupport ReportServiceTestSupport;
 
         [SetUp]
         public void Setup()
         {
-            ReportService = new ReportService(GetSearchEngines());            
+            ReportServiceTestSupport = new ReportServiceTestSupport();
+            ReportService = new ReportService(ReportServiceTestSupport.GetSearchEngines());            
         }
 
         [Test]
@@ -30,14 +29,6 @@ namespace SearchFight.Tests
             string[] arguments = null;
 
             Assert.Throws<ArgumentException>(() => ReportService.AppendResultsByArgument(arguments), "You should provide words to start the search");
-        }
-
-        private List<ISearchEngine> GetSearchEngines()
-        {
-            return new List<ISearchEngine>()
-            {
-                new GoogleSearch(){}
-            };
         }
     }
 }

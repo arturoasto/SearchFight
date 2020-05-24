@@ -1,10 +1,12 @@
-﻿namespace SearchFight.SearchEngines
+﻿using System.Threading.Tasks;
+
+namespace SearchFight.SearchEngines
 {
     public interface ISearchEngine
     {
-        public string Name { get; }
-        public int MaxResult { get; set; }
-        public string MaxWinner { get; set; }
-        public int GetSearchResultCount(string searchInput);
+        string Name { get; }
+        long MaxResult { get; set; }
+        string MaxWinner { get; set; }
+        Task<long> GetSearchResultCount(string searchInput);
     }
 }
