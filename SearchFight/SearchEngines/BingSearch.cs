@@ -6,8 +6,8 @@ namespace SearchFight.SearchEngines
 {
     public class BingSearch : ICustomSearchEngine
     {
-        private const string BaseUrl = "https://api.cognitive.microsoft.com/bing/v7.0/search?q={QUERY}";
-        private const string ApiKey = "";
+        private static readonly string BaseUrl = ConfigService.Config.Bing.ApiUrl;
+        private static readonly string ApiKey = ConfigService.Config.Bing.ApiKey;
 
         public ISearchEngine Engine { get; set; }
         public SearchEngineType Name { get; set; }
@@ -22,8 +22,8 @@ namespace SearchFight.SearchEngines
         public long GetSearchResultCount(string searchInput)
         {
             string content = Engine.SearchResult(GetSearchRequest(searchInput));
-            var bingResponse = JsonSerializer.Deserialize<BingResponse>(content);
-            var searchTotalResults = long.Parse(bingResponse.WebPages.TotalEstimatedMatches);
+            var bingResponse = JsonSerializer.Deserialize<BingResponse>(content, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+            var searchTotalResults = bingResponse.WebPages.TotalEstimatedMatches;
 
             Engine.SetMaxResults(searchTotalResults, searchInput);
 

@@ -1,0 +1,11 @@
+﻿{
+  "Google": {
+    "ApiUrl": "https://www.googleapis.com/customsearch/v1?key={KEY}&cx={SEARCH_ENGINE_ID}&q={QUERY}",
+    "ApiKey": "",
+    "SearchEngineId": ""
+  },
+  "Bing": {
+    "ApiUrl": "https://api.cognitive.microsoft.com/bing/v7.0/search?q={QUERY}",
+    "ApiKey": ""
+  }
+}

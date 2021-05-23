@@ -2,6 +2,6 @@
 {
     public class WebPages
     {
-        public string TotalEstimatedMatches { get; set; }
+        public long TotalEstimatedMatches { get; set; }
     }
 }

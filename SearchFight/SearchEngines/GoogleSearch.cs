@@ -6,9 +6,9 @@ namespace SearchFight.SearchEngines
 {
     public class GoogleSearch : ICustomSearchEngine
     {
-        private const string BaseUrl = "https://www.googleapis.com/customsearch/v1?key={KEY}&amp;cx={SEARCH_ENGINE_ID}&amp;q={QUERY}";
-        private const string ApiKey = "";
-        private const string SearchEngineId = "";
+        private static readonly string BaseUrl = ConfigService.Config.Google.ApiUrl;
+        private static readonly string ApiKey = ConfigService.Config.Google.ApiKey;
+        private static readonly string SearchEngineId = ConfigService.Config.Google.SearchEngineId;
 
         public ISearchEngine Engine { get; set; }
         public SearchEngineType Name { get; set; }
@@ -23,7 +23,7 @@ namespace SearchFight.SearchEngines
         {
             string content = Engine.SearchResult(GetSearchRequest(searchInput));
 
-            var googleResponse = JsonSerializer.Deserialize<GoogleResponse>(content);
+            var googleResponse = JsonSerializer.Deserialize<GoogleResponse>(content, new JsonSerializerOptions() {PropertyNameCaseInsensitive = true });
             var searchTotalResults = long.Parse(googleResponse.SearchInformation.TotalResults);
 
             Engine.SetMaxResults(searchTotalResults, searchInput);
