@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace SearchFight
 {
-    public static class SearchFight
+    public class SearchFight
     {
-        public static ReportService ReportService;
+        public ReportService ReportService;
 
-        static SearchFight()
+        public SearchFight()
         {
             ReportService = new ReportService(GetSearchEngines());
         }
 
-        public static async Task StartSearch(string[] args)
+        public void StartSearch(string[] args)
         {
-            await ReportService.AppendResultsByArgument(args);
-            ReportService.AppendResultsBySearchEngine()
+            ReportService.AppendResultsByArgument(args)
+                         .AppendResultsBySearchEngine()
                          .AppendTotalWinner();
         }
 

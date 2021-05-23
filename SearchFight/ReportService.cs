@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SearchFight
 {
@@ -18,9 +17,9 @@ namespace SearchFight
             ReportOutputs = new List<string>();
         }
 
-        public async Task<ReportService> AppendResultsByArgument(string[] args)
+        public ReportService AppendResultsByArgument(string[] args)
         {
-            if (args.Count() == 0) throw new ArgumentException("You should provide words to start the search");
+            if (args.Length == 0) throw new ArgumentException("You should provide words to start the search");
 
             foreach (var arg in args)
             {
@@ -29,7 +28,7 @@ namespace SearchFight
                 foreach (var searchEngine in SearchEngines)
                 {
                     lineResult.Append($" {searchEngine.Name}:");
-                    lineResult.Append($" {await searchEngine.GetSearchResultCount(arg)}");
+                    lineResult.Append($" {searchEngine.GetSearchResultCount(arg)}");
                 }
 
                 ReportOutputs.Add(lineResult.ToString());

@@ -8,8 +8,9 @@ namespace SearchFight
         {          
             Console.WriteLine("Search Fight ...");
 
-            SearchFight.StartSearch(searchParams).GetAwaiter().GetResult();
-            SearchFight.ReportService.ReportOutputs.ForEach(report => Console.WriteLine(report));
+            SearchFight searchFight = new();
+            searchFight.StartSearch(searchParams);
+            searchFight.ReportService.ReportOutputs.ForEach(report => Console.WriteLine(report));
 
             Console.ReadLine();
         }

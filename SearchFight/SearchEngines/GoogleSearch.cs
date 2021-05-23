@@ -1,24 +1,23 @@
 ﻿using Newtonsoft.Json;
 using SearchFight.Models.Google;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace SearchFight.SearchEngines
 {
-    public class GoogleSearch : Base, ISearchEngine
+    public class GoogleSearch : SearchEngine, ISearchEngine
     {       
-        private string BaseUrl => GetConfiguration("BASE_URL");
-        private string ApiKey => GetConfiguration("API_KEY");
-        private string SearchEngineId => GetConfiguration("SEARCH_ENGINE_ID");
+        private static string BaseUrl => GetConfiguration("BASE_URL");
+        private static string ApiKey => GetConfiguration("API_KEY");
+        private static string SearchEngineId => GetConfiguration("SEARCH_ENGINE_ID");
 
         public GoogleSearch()
         {
             Client = new HttpClient();
         }
 
-        public async Task<long> GetSearchResultCount(string searchInput)
+        public long GetSearchResultCount(string searchInput)
         {
-            string content = await SearchResult(Client, GetSearchRequest(searchInput));
+            string content = SearchResult(Client, GetSearchRequest(searchInput));
 
             var googleResponse = JsonConvert.DeserializeObject<GoogleResponse>(content);
             var searchTotalResults = long.Parse(googleResponse.SearchInformation.TotalResults);

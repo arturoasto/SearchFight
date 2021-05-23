@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 
 namespace SearchFight.Tests.Mock
 {
-    internal class MockedSearchEngine : Base, ISearchEngine
+    internal class MockedSearchEngine : SearchEngine, ISearchEngine
     {
-        public Task<long> GetSearchResultCount(string searchInput)
+        public long GetSearchResultCount(string searchInput)
         {
-            return Task.Run(() => { return long.MaxValue; });
+            return long.MaxValue;
         }
 
         protected override string GetSearchRequest(string searchInput)

@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace SearchFight.SearchEngines
 {
-    public class BingSearch : Base, ISearchEngine
+    public class BingSearch : SearchEngine, ISearchEngine
     {
-        private string BaseUrl => GetConfiguration("BING_BASE_URL");
-        private string ApiKey => GetConfiguration("BING_API_KEY");
+        private static string BaseUrl => GetConfiguration("BING_BASE_URL");
+        private static string ApiKey => GetConfiguration("BING_API_KEY");
 
         public BingSearch()
         {
@@ -16,9 +16,9 @@ namespace SearchFight.SearchEngines
             Client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", ApiKey);
         }
 
-        public async Task<long> GetSearchResultCount(string searchInput)
+        public long GetSearchResultCount(string searchInput)
         {
-            string content = await SearchResult(Client, GetSearchRequest(searchInput));
+            string content = SearchResult(Client, GetSearchRequest(searchInput));
 
             var bingResponse = JsonConvert.DeserializeObject<BingResponse>(content);
             var searchTotalResults = long.Parse(bingResponse.WebPages.TotalEstimatedMatches);

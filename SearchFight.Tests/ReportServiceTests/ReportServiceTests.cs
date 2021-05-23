@@ -24,17 +24,17 @@ namespace SearchFight.Tests.ReportServiceTests
         public void ReportService_AppendResultsByArgument_ReportOutputOk()
         {
             var arguments = new string[2] { "java", "net" };
-            ReportService.AppendResultsByArgument(arguments).GetAwaiter().GetResult();
+            ReportService.AppendResultsByArgument(arguments);
             ReportService.ReportOutputs.Should().NotBeEmpty();
         }
 
         [Test]
         public void ReportService_AppendResultsByArgument_ArgumentException()
         {
-            string[] arguments = new string[0];
+            string[] arguments = Array.Empty<string>();
 
             Assert.Throws<ArgumentException>(() =>
-                                            ReportService.AppendResultsByArgument(arguments).GetAwaiter().GetResult(),                
+                                            ReportService.AppendResultsByArgument(arguments),                
                                             "You should provide words to start the search");
         }
 
