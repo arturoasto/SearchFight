@@ -1,34 +1,39 @@
 ﻿using System.Configuration;
 using System.IO;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace SearchFight.SearchEngines
 {
-    public abstract class SearchEngine
+    public class SearchEngine
     {
-        public SearchEngineType Name { get; set; }
-        public long MaxResult { get; set; }
-        public string MaxWinner { get; set; }
-
         public HttpClient Client { get; set; }
-        public static string GetConfiguration(string key) => ConfigurationManager.AppSettings[key];
-        protected abstract string GetSearchRequest(string searchInput);
 
-        protected static string SearchResult(HttpClient client, string searchRequest)
+        public SearchEngine()
+        {
+            Client = new HttpClient();
+        }
+
+        public void SetBingSearch(string apiKey)
+        {
+            Client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiKey);
+        }        
+
+        public string SearchResult(string searchRequest)
         {            
-            var response = client.GetAsync(searchRequest).GetAwaiter().GetResult();
+            var response = Client.GetAsync(searchRequest).GetAwaiter().GetResult();
             using var reader = new StreamReader(response.Content.ReadAsStream());
             return reader.ReadToEnd();
         }
 
-        protected void SetMaxResults(long result, string searchInput)
+        public static (long, string) SetMaxResults(long newResult, long currentResult, string currentWinner, string searchInput)
         {
-            if (result > MaxResult)
+            if (newResult > currentResult)
             {
-                MaxResult = result;
-                MaxWinner = searchInput;
+                currentResult = newResult;
+                currentWinner = searchInput;
             }
+
+            return (currentResult, currentWinner);
         }
     }
 

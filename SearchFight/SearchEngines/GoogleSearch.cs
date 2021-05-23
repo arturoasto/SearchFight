@@ -1,33 +1,43 @@
 ﻿using Newtonsoft.Json;
 using SearchFight.Models.Google;
-using System.Net.Http;
+using System.Configuration;
 
 namespace SearchFight.SearchEngines
 {
-    public class GoogleSearch : SearchEngine, ISearchEngine
+    public class GoogleSearch : ISearchEngine
     {       
         private static string BaseUrl => GetConfiguration("BASE_URL");
         private static string ApiKey => GetConfiguration("API_KEY");
         private static string SearchEngineId => GetConfiguration("SEARCH_ENGINE_ID");
 
+        public SearchEngine Engine { get; set; }
+
+        public SearchEngineType Name { get; set; }
+
+        public long MaxResult { get; set; }
+        public string MaxWinner { get; set; }
+
         public GoogleSearch()
         {
-            Client = new HttpClient();
+            Name = SearchEngineType.Google;
+            Engine = new SearchEngine();
         }
+
+        public static string GetConfiguration(string key) => ConfigurationManager.AppSettings[key];
 
         public long GetSearchResultCount(string searchInput)
         {
-            string content = SearchResult(Client, GetSearchRequest(searchInput));
+            string content = Engine.SearchResult(GetSearchRequest(searchInput));
 
             var googleResponse = JsonConvert.DeserializeObject<GoogleResponse>(content);
             var searchTotalResults = long.Parse(googleResponse.SearchInformation.TotalResults);
 
-            SetMaxResults(searchTotalResults, searchInput);
+            (MaxResult, MaxWinner) = SearchEngine.SetMaxResults(searchTotalResults, MaxResult, MaxWinner, searchInput);
 
             return searchTotalResults;
         }
 
-        protected override string GetSearchRequest(string searchInput)
+        public static string GetSearchRequest(string searchInput)
         {
             return BaseUrl.Replace("{KEY}", ApiKey)
                           .Replace("{SEARCH_ENGINE_ID}", SearchEngineId)

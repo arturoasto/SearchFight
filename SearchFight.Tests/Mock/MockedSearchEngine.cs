@@ -2,16 +2,16 @@
 
 namespace SearchFight.Tests.Mock
 {
-    internal class MockedSearchEngine : SearchEngine, ISearchEngine
+    internal class MockedSearchEngine : ISearchEngine
     {
+        public SearchEngineType Name { get; set; }
+
+        public long MaxResult { get; set; }
+        public string MaxWinner { get; set; }
+
         public long GetSearchResultCount(string searchInput)
         {
             return long.MaxValue;
-        }
-
-        protected override string GetSearchRequest(string searchInput)
-        {
-            return null;
         }
     }
 }

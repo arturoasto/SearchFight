@@ -2,33 +2,44 @@
 using SearchFight.Models.Bing;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace SearchFight.SearchEngines
 {
-    public class BingSearch : SearchEngine, ISearchEngine
+    public class BingSearch : ISearchEngine
     {
         private static string BaseUrl => GetConfiguration("BING_BASE_URL");
         private static string ApiKey => GetConfiguration("BING_API_KEY");
 
+        public SearchEngine Engine { get; set; }
+
+        public SearchEngineType Name { get; set; }
+
+        public long MaxResult { get; set; }
+        public string MaxWinner { get; set; }
+
         public BingSearch()
         {
-            Client = new HttpClient();
-            Client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", ApiKey);
+            Name = SearchEngineType.Bing;
+            Engine = new SearchEngine();
+            Engine.SetBingSearch(ApiKey);
         }
+
+        public static string GetConfiguration(string key) => ConfigurationManager.AppSettings[key];
 
         public long GetSearchResultCount(string searchInput)
         {
-            string content = SearchResult(Client, GetSearchRequest(searchInput));
+            string content = Engine.SearchResult(GetSearchRequest(searchInput));
 
             var bingResponse = JsonConvert.DeserializeObject<BingResponse>(content);
             var searchTotalResults = long.Parse(bingResponse.WebPages.TotalEstimatedMatches);
 
-            SetMaxResults(searchTotalResults, searchInput);
+            (MaxResult, MaxWinner) = SearchEngine.SetMaxResults(searchTotalResults, MaxResult, MaxWinner, searchInput);
 
             return searchTotalResults;
         }
 
-        protected override string GetSearchRequest(string searchInput)
+        private static string GetSearchRequest(string searchInput)
         {
             return BaseUrl.Replace("{KEY}", ApiKey)
                           .Replace("{QUERY}", searchInput);
