@@ -1,14 +1,13 @@
-﻿using Newtonsoft.Json;
-using SearchFight.Models.Google;
-using System.Configuration;
+﻿using SearchFight.Models.Google;
+using System.Text.Json;
 
 namespace SearchFight.SearchEngines
 {
     public class GoogleSearch : ISearchEngine
     {
-        private static string BaseUrl => ConfigurationManager.AppSettings["BASE_URL"];
-        private static string ApiKey => ConfigurationManager.AppSettings["API_KEY"];
-        private static string SearchEngineId => ConfigurationManager.AppSettings["SEARCH_ENGINE_ID"];
+        private const string BaseUrl = "https://www.googleapis.com/customsearch/v1?key={KEY}&amp;cx={SEARCH_ENGINE_ID}&amp;q={QUERY}";
+        private const string ApiKey = "";
+        private const string SearchEngineId = "";
 
         public SearchEngine Engine { get; set; }
 
@@ -24,7 +23,7 @@ namespace SearchFight.SearchEngines
         {
             string content = Engine.SearchResult(GetSearchRequest(searchInput));
 
-            var googleResponse = JsonConvert.DeserializeObject<GoogleResponse>(content);
+            var googleResponse = JsonSerializer.Deserialize<GoogleResponse>(content);
             var searchTotalResults = long.Parse(googleResponse.SearchInformation.TotalResults);
 
             Engine.SetMaxResults(searchTotalResults, searchInput);

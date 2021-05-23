@@ -1,13 +1,12 @@
-﻿using Newtonsoft.Json;
-using SearchFight.Models.Bing;
-using System.Configuration;
+﻿using SearchFight.Models.Bing;
+using System.Text.Json;
 
 namespace SearchFight.SearchEngines
 {
     public class BingSearch : ISearchEngine
     {
-        private static string BaseUrl => ConfigurationManager.AppSettings["BING_BASE_URL"];
-        private static string ApiKey => ConfigurationManager.AppSettings["BING_API_KEY"];
+        private const string BaseUrl = "https://api.cognitive.microsoft.com/bing/v7.0/search?q={QUERY}";
+        private const string ApiKey = "";
 
         public SearchEngine Engine { get; set; }
         public SearchEngineType Name { get; set; }
@@ -22,8 +21,7 @@ namespace SearchFight.SearchEngines
         public long GetSearchResultCount(string searchInput)
         {
             string content = Engine.SearchResult(GetSearchRequest(searchInput));
-
-            var bingResponse = JsonConvert.DeserializeObject<BingResponse>(content);
+            var bingResponse = JsonSerializer.Deserialize<BingResponse>(content);
             var searchTotalResults = long.Parse(bingResponse.WebPages.TotalEstimatedMatches);
 
             Engine.SetMaxResults(searchTotalResults, searchInput);
