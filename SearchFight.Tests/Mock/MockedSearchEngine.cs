@@ -1,5 +1,4 @@
 ﻿using SearchFight.SearchEngines;
-using System.Threading.Tasks;
 
 namespace SearchFight.Tests.Mock
 {

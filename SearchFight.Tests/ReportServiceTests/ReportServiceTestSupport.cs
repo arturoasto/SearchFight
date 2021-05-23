@@ -1,17 +1,26 @@
 ﻿using SearchFight.SearchEngines;
 using SearchFight.Tests.Mock;
+using System;
 using System.Collections.Generic;
 
 namespace SearchFight.Tests.ReportServiceTests
 {
     internal class ReportServiceTestSupport
     {
-        internal List<ISearchEngine> GetSearchEngines()
+        internal static List<ISearchEngine> GetSearchEngines()
         {
-            return new List<ISearchEngine>()
+            List<ISearchEngine> searchEngines = new();
+
+            foreach (SearchEngineType searchEngine in Enum.GetValues(typeof(SearchEngineType)))
             {
-                new MockedSearchEngine(){}
-            };
+                searchEngines.Add(new MockedSearchEngine()
+                {
+                    Name = searchEngine,
+                    MaxWinner = "search fight"
+                });
+            }
+
+            return searchEngines;
         }
     }
 }

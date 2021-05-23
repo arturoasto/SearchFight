@@ -7,11 +7,9 @@ namespace SearchFight.SearchEngines
 {
     public abstract class SearchEngine
     {
-        public string Name { get => this.GetType().Name.Replace("Search", ""); }
+        public SearchEngineType Name { get; set; }
         public long MaxResult { get; set; }
         public string MaxWinner { get; set; }
-        public SearchEngineType Type { get; set; }
-
 
         public HttpClient Client { get; set; }
         public static string GetConfiguration(string key) => ConfigurationManager.AppSettings[key];

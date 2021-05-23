@@ -1,22 +1,18 @@
 using FluentAssertions;
 using NUnit.Framework;
-using SearchFight.Tests.Mock;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SearchFight.Tests.ReportServiceTests
 {
     public class ReportServiceTests
     {
-        private MockedSearchEngine MockedSearchEngine;
         private ReportService ReportService;
-        private ReportServiceTestSupport ReportServiceTestSupport;
 
         [SetUp]
         public void Setup()
         {
-            MockedSearchEngine = new MockedSearchEngine();
-            ReportServiceTestSupport = new ReportServiceTestSupport();
             ReportService = new ReportService(ReportServiceTestSupport.GetSearchEngines());            
         }
 
@@ -42,9 +38,11 @@ namespace SearchFight.Tests.ReportServiceTests
         public void ReportService_AppendResultsBySearchEngine_Success()
         {
             ReportService.AppendResultsBySearchEngine();
-            ReportService.ReportOutputs.First()
-                                       .Should()
-                                       .Be($"{MockedSearchEngine.Name} winner: {MockedSearchEngine.MaxWinner}");
+            ReportService.ReportOutputs.Should().BeEquivalentTo(new List<string>()
+            {
+                "Google winner: search fight",
+                "Bing winner: search fight"
+            });
         }
 
         [Test]
@@ -53,7 +51,7 @@ namespace SearchFight.Tests.ReportServiceTests
             ReportService.AppendTotalWinner();
             ReportService.ReportOutputs.First()
                                        .Should()
-                                       .Be($"Total winner: {MockedSearchEngine.MaxWinner}");
+                                       .Be($"Total winner: search fight");
         }
     }
 }
