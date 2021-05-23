@@ -1,9 +1,14 @@
-﻿namespace SearchFight.SearchEngines
+﻿using System.Net.Http;
+
+namespace SearchFight.SearchEngines.Interfaces
 {
     public interface ISearchEngine
     {
-        SearchEngine Engine { get; set; }
-        SearchEngineType Name { get; }
-        long GetSearchResultCount(string searchInput);
+        HttpClient Client { get; set; }
+        long MaxResult { get; set; }
+        string MaxWinner { get; set; }
+        void SetBingSearch(string apiKey);
+        string SearchResult(string searchRequest);
+        void SetMaxResults(long newResult, string searchInput);
     }
 }

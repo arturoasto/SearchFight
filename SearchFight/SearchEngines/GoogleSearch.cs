@@ -1,22 +1,22 @@
 ﻿using SearchFight.Models.Google;
+using SearchFight.SearchEngines.Interfaces;
 using System.Text.Json;
 
 namespace SearchFight.SearchEngines
 {
-    public class GoogleSearch : ISearchEngine
+    public class GoogleSearch : ICustomSearchEngine
     {
         private const string BaseUrl = "https://www.googleapis.com/customsearch/v1?key={KEY}&amp;cx={SEARCH_ENGINE_ID}&amp;q={QUERY}";
         private const string ApiKey = "";
         private const string SearchEngineId = "";
 
-        public SearchEngine Engine { get; set; }
-
+        public ISearchEngine Engine { get; set; }
         public SearchEngineType Name { get; set; }
 
-        public GoogleSearch()
+        public GoogleSearch(ISearchEngine searchEngine)
         {
             Name = SearchEngineType.Google;
-            Engine = new SearchEngine();
+            Engine = searchEngine;
         }
 
         public long GetSearchResultCount(string searchInput)

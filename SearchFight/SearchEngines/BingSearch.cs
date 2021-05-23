@@ -1,20 +1,21 @@
 ﻿using SearchFight.Models.Bing;
+using SearchFight.SearchEngines.Interfaces;
 using System.Text.Json;
 
 namespace SearchFight.SearchEngines
 {
-    public class BingSearch : ISearchEngine
+    public class BingSearch : ICustomSearchEngine
     {
         private const string BaseUrl = "https://api.cognitive.microsoft.com/bing/v7.0/search?q={QUERY}";
         private const string ApiKey = "";
 
-        public SearchEngine Engine { get; set; }
+        public ISearchEngine Engine { get; set; }
         public SearchEngineType Name { get; set; }
 
-        public BingSearch()
+        public BingSearch(ISearchEngine searchEngine)
         {
             Name = SearchEngineType.Bing;
-            Engine = new SearchEngine();
+            Engine = searchEngine;
             Engine.SetBingSearch(ApiKey);
         }
 

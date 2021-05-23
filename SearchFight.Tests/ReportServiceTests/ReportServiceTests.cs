@@ -14,7 +14,16 @@ namespace SearchFight.Tests.ReportServiceTests
         [SetUp]
         public void Setup()
         {
-            ReportService = new ReportService(ReportServiceTestSupport.GetSearchEngines());            
+            ReportService = new ReportService(ReportServiceTestSupport.GetSearchEngines(ReportServiceTestSupport.GetCustomSearchEngineDefault()));            
+        }
+
+        [Test]
+        public void ReportService_LoadReport()
+        {
+            var reportService = new ReportService(ReportServiceTestSupport.GetSearchEngines(ReportServiceTestSupport.GetCustomSearchEngineEmpty()));
+
+            reportService.LoadReport(new[] { "java", "net"});
+            reportService.ReportOutputs.Count().Should().Be(5);
         }
 
         [Test]
@@ -39,6 +48,15 @@ namespace SearchFight.Tests.ReportServiceTests
             ReportService.AppendResultsByArgument(arguments);
             ReportService.ReportOutputs.Should().NotBeEmpty();
             ReportService.ReportOutputs.Count().Should().Be(4);
+        }
+
+        [Test]
+        public void ReportService_GetReportLine_Ok()
+        {
+            var result = ReportService.GetReportLine("search fight");
+            ReportService.ReportOutputs.Add(result);
+            ReportService.ReportOutputs.Should().NotBeEmpty();
+            ReportService.ReportOutputs.Count().Should().Be(1);
         }
 
         [Test]

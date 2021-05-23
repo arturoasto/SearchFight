@@ -11,21 +11,18 @@ namespace SearchFight
             Console.WriteLine("Search Fight ...");
 
             ReportService reportService = new(GetSearchEngines());
-            reportService.AppendResultsByArgument(searchParams)
-                         .AppendResultsBySearchEngine()
-                         .AppendTotalWinner();
-
-            reportService.ReportOutputs.ForEach(report => Console.WriteLine(report));
+            reportService.LoadReport(searchParams);
+            reportService.ShowReport();
 
             Console.ReadLine();
         }
 
-        static List<ISearchEngine> GetSearchEngines()
+        static List<ICustomSearchEngine> GetSearchEngines()
         {
-            return new List<ISearchEngine>()
+            return new List<ICustomSearchEngine>()
             {
-                new GoogleSearch(),
-                new BingSearch(),
+                new GoogleSearch(new SearchEngine()),
+                new BingSearch(new SearchEngine()),
             };
         }
     }

@@ -15,7 +15,7 @@ namespace SearchFight.Tests
         public void SearchEngine_Google_GetSearchResultCount()
         {
             var faker = new Faker();
-            var reportService = new ReportService(ReportServiceTestSupport.GetSearchEngines());            
+            var reportService = new ReportService(ReportServiceTestSupport.GetSearchEngines(ReportServiceTestSupport.GetCustomSearchEngineDefault()));            
             var result = reportService.SearchEngines.First().GetSearchResultCount(faker.Random.String());
 
             result.Should().BeGreaterOrEqualTo(0);

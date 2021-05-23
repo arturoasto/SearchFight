@@ -1,17 +1,25 @@
 ﻿using Bogus;
 using SearchFight.SearchEngines;
+using SearchFight.SearchEngines.Interfaces;
 
 namespace SearchFight.Tests.Mock
 {
-    internal class MockedSearchEngine : ISearchEngine
+    internal class MockedSearchEngine : ICustomSearchEngine
     {
         public SearchEngineType Name { get; set; }
-        public SearchEngine Engine { get ; set ; }
+        public ISearchEngine Engine { get ; set ; }
 
         public long GetSearchResultCount(string searchInput)
         {
             var faker = new Faker();
-            return faker.Random.Long(0);
+            var resultNumber = faker.Random.Long(0);
+            Engine.SetMaxResults(resultNumber, searchInput);
+            return resultNumber;
+        }
+
+        public MockedSearchEngine(ISearchEngine searchEngine)
+        {
+            Engine = searchEngine;
         }
     }
 }

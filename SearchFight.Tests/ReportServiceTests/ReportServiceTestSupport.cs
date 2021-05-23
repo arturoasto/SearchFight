@@ -1,4 +1,5 @@
 ﻿using SearchFight.SearchEngines;
+using SearchFight.SearchEngines.Interfaces;
 using SearchFight.Tests.Mock;
 using System;
 using System.Collections.Generic;
@@ -7,24 +8,33 @@ namespace SearchFight.Tests.ReportServiceTests
 {
     internal class ReportServiceTestSupport
     {
-        internal static List<ISearchEngine> GetSearchEngines()
+        internal static List<ICustomSearchEngine> GetSearchEngines(ISearchEngine searchEngine)
         {
-            List<ISearchEngine> searchEngines = new();
+            List<ICustomSearchEngine> searchEngines = new();
 
-            foreach (SearchEngineType searchEngine in Enum.GetValues(typeof(SearchEngineType)))
+            foreach (SearchEngineType type in Enum.GetValues(typeof(SearchEngineType)))
             {
-                searchEngines.Add(new MockedSearchEngine()
+                searchEngines.Add(new MockedSearchEngine(searchEngine)
                 {
-                    Name = searchEngine,
-                    Engine = new SearchEngine()
-                    {
-                        MaxResult = long.MaxValue,
-                        MaxWinner = "search fight"
-                    }                    
+                    Name = type
                 });
             }
 
             return searchEngines;
+        }
+
+        internal static ISearchEngine GetCustomSearchEngineDefault()
+        {          
+            return new SearchEngine()
+            {
+                MaxResult = long.MaxValue,
+                MaxWinner = "search fight"
+            };
+        }
+
+        internal static ISearchEngine GetCustomSearchEngineEmpty()
+        {
+            return new SearchEngine();
         }
     }
 }

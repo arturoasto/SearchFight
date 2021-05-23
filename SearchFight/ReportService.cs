@@ -9,44 +9,51 @@ namespace SearchFight
     public class ReportService
     {
         public List<string> ReportOutputs { get; set; }
-        public List<ISearchEngine> SearchEngines { get; set; }
+        public List<ICustomSearchEngine> SearchEngines { get; set; }
 
-        public ReportService(List<ISearchEngine> searchEngines)
+        public ReportService(List<ICustomSearchEngine> searchEngines)
         {
             SearchEngines = searchEngines;
             ReportOutputs = new List<string>();
         }
 
-        public ReportService AppendResultsByArgument(string[] args)
+        public void LoadReport(string[] args)
+        {
+            AppendResultsByArgument(args);
+            AppendResultsBySearchEngine();
+            AppendTotalWinner();
+        }
+
+        public void ShowReport()
+        {
+            ReportOutputs.ForEach(report => Console.WriteLine(report));
+        }
+
+        public void AppendResultsByArgument(string[] args)
         {
             if (args.Length == 0) throw new ArgumentException("You should provide words to start the search");
 
             foreach (var arg in args)
-            {
-                var lineResult = new StringBuilder($"{arg}:");
-
-                foreach (var searchEngine in SearchEngines)
-                {
-                    lineResult.Append($" {searchEngine.Name}:");
-                    lineResult.Append($" {searchEngine.GetSearchResultCount(arg)}");
-                }
-
-                ReportOutputs.Add(lineResult.ToString());
+            {                
+                ReportOutputs.Add(GetReportLine(arg));
             }
-
-            return this;
         }
 
-        public ReportService AppendResultsBySearchEngine()
+        public string GetReportLine(string arg)
+        {
+            var reportLine = $"{arg}:";
+            SearchEngines.ForEach(x => reportLine += $" {x.Name}: {x.GetSearchResultCount(arg)}");
+            return reportLine;
+        }
+
+        public void AppendResultsBySearchEngine()
         {
             SearchEngines.ForEach(searchEngine => ReportOutputs.Add($"{searchEngine.Name} winner: {searchEngine.Engine.MaxWinner}"));
-            return this;
         }
 
         public void AppendTotalWinner()
         {
-            var maxResult = SearchEngines.Max(x => x.Engine.MaxResult);
-            var totalWinner = SearchEngines.Where(x => x.Engine.MaxResult == maxResult).Select(x => x.Engine.MaxWinner).First();
+            var totalWinner = SearchEngines.First(x => x.Engine.MaxResult == SearchEngines.Max(x => x.Engine.MaxResult)).Engine.MaxWinner;
 
             ReportOutputs.Add($"Total winner: {totalWinner}");
         }
