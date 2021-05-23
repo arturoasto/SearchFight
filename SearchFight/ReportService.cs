@@ -39,14 +39,14 @@ namespace SearchFight
 
         public ReportService AppendResultsBySearchEngine()
         {
-            SearchEngines.ForEach(searchEngine => ReportOutputs.Add($"{searchEngine.Name} winner: {searchEngine.MaxWinner}"));
+            SearchEngines.ForEach(searchEngine => ReportOutputs.Add($"{searchEngine.Name} winner: {searchEngine.Engine.MaxWinner}"));
             return this;
         }
 
         public void AppendTotalWinner()
         {
-            var maxResult = SearchEngines.Max(x => x.MaxResult);
-            var totalWinner = SearchEngines.Where(x => x.MaxResult == maxResult).Select(x => x.MaxWinner).First();
+            var maxResult = SearchEngines.Max(x => x.Engine.MaxResult);
+            var totalWinner = SearchEngines.Where(x => x.Engine.MaxResult == maxResult).Select(x => x.Engine.MaxWinner).First();
 
             ReportOutputs.Add($"Total winner: {totalWinner}");
         }

@@ -16,7 +16,11 @@ namespace SearchFight.Tests.ReportServiceTests
                 searchEngines.Add(new MockedSearchEngine()
                 {
                     Name = searchEngine,
-                    MaxWinner = "search fight"
+                    Engine = new SearchEngine()
+                    {
+                        MaxResult = long.MaxValue,
+                        MaxWinner = "search fight"
+                    }                    
                 });
             }
 

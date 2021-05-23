@@ -2,9 +2,8 @@
 {
     public interface ISearchEngine
     {
+        SearchEngine Engine { get; set; }
         SearchEngineType Name { get; }
-        long MaxResult { get; set; }
-        string MaxWinner { get; set; }
         long GetSearchResultCount(string searchInput);
     }
 }
