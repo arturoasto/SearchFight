@@ -1,13 +1,9 @@
 # SearchFight
 
-Making use of the KISS and DRY principles, and following SOLID principles
-this application can scale and support multiple search engines.
+Compare search engines result outputs with SearchFight.
 
-Also following the KISS principle we make sure that we are not to create accidental
-complexity at the time of implementation
 this application will recieve arguments in the console and return how many results
 are per implemmented search engine, for example:
-
 
     C:\> searchfight.exe .net java
 
@@ -18,5 +14,18 @@ are per implemmented search engine, for example:
     MSN Search winner: java
     Total winner: .net  
 
-Before starting the application you have to make sure you have the needed keys for 
-the API's and place them in the App.config file.
+
+Before starting the application you have to make sure you have the keys for 
+the API's and place them in the AppConfig.json file.
+
+The current implementation supports Google and Bing API, however you can add new
+search engines just make sure you implement ICustomSearchEngine and you're done!
+
+The application has unit tests so feel free to modify and refactor. Right now the current metrics are:
+
+![image](https://user-images.githubusercontent.com/31879123/119282144-20b8c780-bbfe-11eb-88ab-e940929c5d19.png)
+
+Also we use code coverage metric with coverlet and report generator:
+
+![image](https://user-images.githubusercontent.com/31879123/119282213-6a091700-bbfe-11eb-8460-a0c7dba84309.png)
+
