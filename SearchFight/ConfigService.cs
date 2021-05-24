@@ -8,7 +8,7 @@ namespace SearchFight
     {
         public static readonly Config Config = GetConfiguration();
 
-        private static Config GetConfiguration()
+        public static Config GetConfiguration()
         {
             string jsonFile = File.ReadAllText("AppConfig.json");
             return JsonSerializer.Deserialize<Config>(jsonFile);

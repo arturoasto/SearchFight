@@ -2,9 +2,9 @@
 using FluentAssertions;
 using NUnit.Framework;
 using SearchFight.SearchEngines;
+using SearchFight.Tests.Mock;
 using SearchFight.Tests.ReportServiceTests;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace SearchFight.Tests
@@ -22,12 +22,12 @@ namespace SearchFight.Tests
         }
 
         [Test]
-        public void SearchEngine_SetBingSearch_HeaderIsPresent()
+        public void SearchEngine_AddCustomHeader_HeaderIsPresent()
         {
             var engine = new SearchEngine();
-            engine.SetBingSearch("test");
+            engine.AddCustomHeader("test","testValue");
 
-            var isHeaderPresent = engine.Client.DefaultRequestHeaders.Contains("Ocp-Apim-Subscription-Key");
+            var isHeaderPresent = engine.Client.DefaultRequestHeaders.Contains("test");
             isHeaderPresent.Should().BeTrue();
         }
 
@@ -44,12 +44,22 @@ namespace SearchFight.Tests
         }
 
         [Test]
-        public void SearchEngine_SetBingSearch_ApiKeyEmpty()
+        public void SearchEngine_AddCustomHeader_NameValueEmpty()
         {
             var engine = new SearchEngine();
-            var exception = new ArgumentException("Api key should not be empty");
+            var exception = new ArgumentException("the name value should not be empty");
 
-            var result = Assert.Throws<ArgumentException>(() => engine.SetBingSearch(string.Empty));
+            var result = Assert.Throws<ArgumentException>(() => engine.AddCustomHeader(string.Empty, new Faker().Random.String()));
+            Assert.AreEqual(exception.Message, result.Message);
+        }
+
+        [Test]
+        public void SearchEngine_AddCustomHeader_ValueKeyEmpty()
+        {
+            var engine = new SearchEngine();
+            var exception = new ArgumentException("the key value should not be empty");
+
+            var result = Assert.Throws<ArgumentException>(() => engine.AddCustomHeader(new Faker().Random.String(), string.Empty));
             Assert.AreEqual(exception.Message, result.Message);
         }
 
@@ -61,6 +71,47 @@ namespace SearchFight.Tests
 
             var result = Assert.Throws<ArgumentException>(() => engine.SearchResult(string.Empty));
             Assert.AreEqual(exception.Message, result.Message);
+        }
+
+        [Test]
+        public void SearchEngine_SearchResult_HttpClientIsNull()
+        {
+            var engine = new SearchEngine();
+            engine.Client = null;
+            var exception = new ArgumentException("httpClient should not be null");
+
+            var result = Assert.Throws<ArgumentException>(() => engine.SearchResult(new Faker().Random.String()));
+            Assert.AreEqual(exception.Message, result.Message);
+        }
+
+        [Test]
+        public void Google_SearchResultCount_Ok()
+        {
+            GoogleSearch googleSearch= new(new MockedGoogleSearchEngine());
+
+            var result = googleSearch.GetSearchResultCount(new Faker().Random.String());
+            result.Should().Be(100);
+        }
+
+        [Test]
+        public void Google_GetSearchRequest_NullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => GoogleSearch.GetSearchRequest(null));
+        }
+
+        [Test]
+        public void Bing_SearchResultCount_Ok()
+        {
+            BingSearch bingSearch = new(new MockedBingSearchEngine());
+
+            var result = bingSearch.GetSearchResultCount(new Faker().Random.String());
+            result.Should().Be(100);
+        }
+
+        [Test]
+        public void Bing_GetSearchRequest_NullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => BingSearch.GetSearchRequest(null));
         }
     }
 }

@@ -1,11 +1,13 @@
 ﻿using SearchFight.SearchEngines;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SearchFight
 {
+    [ExcludeFromCodeCoverage]
     class Program
-    {
+    {        
         static void Main(string[] searchParams)
         {
             Console.WriteLine("Search Fight ...");

@@ -14,7 +14,7 @@ namespace SearchFight.Tests.ReportServiceTests
 
             foreach (SearchEngineType type in Enum.GetValues(typeof(SearchEngineType)))
             {
-                searchEngines.Add(new MockedSearchEngine(searchEngine)
+                searchEngines.Add(new MockedCustomSearchEngine(searchEngine)
                 {
                     Name = type
                 });

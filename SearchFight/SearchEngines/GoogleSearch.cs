@@ -1,5 +1,6 @@
 ﻿using SearchFight.Models.Google;
 using SearchFight.SearchEngines.Interfaces;
+using System;
 using System.Text.Json;
 
 namespace SearchFight.SearchEngines
@@ -33,6 +34,8 @@ namespace SearchFight.SearchEngines
 
         public static string GetSearchRequest(string searchInput)
         {
+            if (string.IsNullOrWhiteSpace(searchInput)) throw new ArgumentNullException(searchInput);
+
             return BaseUrl.Replace("{KEY}", ApiKey)
                           .Replace("{SEARCH_ENGINE_ID}", SearchEngineId)
                           .Replace("{QUERY}", searchInput);

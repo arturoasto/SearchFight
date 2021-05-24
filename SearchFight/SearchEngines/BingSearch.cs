@@ -1,5 +1,7 @@
 ﻿using SearchFight.Models.Bing;
 using SearchFight.SearchEngines.Interfaces;
+using System;
+using System.Net.Http;
 using System.Text.Json;
 
 namespace SearchFight.SearchEngines
@@ -16,7 +18,7 @@ namespace SearchFight.SearchEngines
         {
             Name = SearchEngineType.Bing;
             Engine = searchEngine;
-            Engine.SetBingSearch(ApiKey);
+            searchEngine.AddCustomHeader("Ocp-Apim-Subscription-Key", ApiKey);
         }
 
         public long GetSearchResultCount(string searchInput)
@@ -30,8 +32,10 @@ namespace SearchFight.SearchEngines
             return searchTotalResults;
         }
 
-        private static string GetSearchRequest(string searchInput)
+        public static string GetSearchRequest(string searchInput)
         {
+            if (string.IsNullOrWhiteSpace(searchInput)) throw new ArgumentNullException(searchInput);
+
             return BaseUrl.Replace("{KEY}", ApiKey)
                           .Replace("{QUERY}", searchInput);
         }

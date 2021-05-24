@@ -15,16 +15,18 @@ namespace SearchFight.SearchEngines
             Client = new HttpClient();
         }
 
-        public void SetBingSearch(string apiKey)
+        public void AddCustomHeader(string name, string value)
         {
-            if (string.IsNullOrWhiteSpace(apiKey)) throw new ArgumentException("Api key should not be empty");
+            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException($"the name value should not be empty");
+            if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException($"the key value should not be empty");
 
-            Client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiKey);
+            Client.DefaultRequestHeaders.Add(name, value);
         }
 
         public string SearchResult(string searchRequest)
         {
             if (string.IsNullOrWhiteSpace(searchRequest)) throw new ArgumentException("Search request should not be empty");
+            if (Client == null) throw new ArgumentException("httpClient should not be null");
 
             var response = Client.GetAsync(searchRequest).GetAwaiter().GetResult();
             var jsonResult = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
